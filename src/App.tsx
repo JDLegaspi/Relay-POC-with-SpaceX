@@ -1,62 +1,66 @@
-import { useEffect, useState } from "react";
-import { fetchGraphQL } from "./utils/fetchGraphQL";
+import { FC, Suspense } from "react";
 import "./App.css";
-import type { CompanyProps } from "./components/Company";
+import type { AppSpaceXQuery as GeneratedAppSpaceXQuery } from "./__generated__/AppSpaceXQuery.graphql";
 import Company from "./components/Company";
-import Launches, { Launch } from "./components/Launches";
+import Launches from "./components/Launches";
+import graphql from "babel-plugin-relay/macro";
+import {
+  RelayEnvironmentProvider,
+  loadQuery,
+  usePreloadedQuery,
+  PreloadedQuery,
+} from "react-relay/hooks";
+import RelayEnvironment from "./utils/relay";
 
-function App() {
-  const [launches, setLaunches] = useState<Launch[]>();
-  const [companyInfo, setCompanyInfo] = useState<CompanyProps>();
-  const [limit, setLimit] = useState<number>(5);
+const AppSpaceXQuery = graphql`
+  query AppSpaceXQuery {
+    company {
+      ceo
+      employees
+      founded
+    }
+    launchesPast(limit: 5) {
+      mission_name
+    }
+  }
+`;
 
-  // When the component mounts we'll fetch a repository name
-  useEffect(() => {
-    let isMounted = true;
-    fetchGraphQL(`
-      query SpaceX {
-        company {
-          ceo
-          employees
-          founded
-        }
-        launchesPast(limit: ${limit}) {
-          mission_name
-        }
-      }
-    `)
-      .then((response) => {
-        if (!isMounted) {
-          return;
-        }
-        const data = response.data;
-        setLaunches(data.launchesPast);
-        setCompanyInfo(data.company);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+const preloadedSpaceXAppQuery = loadQuery<GeneratedAppSpaceXQuery>(
+  RelayEnvironment,
+  AppSpaceXQuery,
+  {}
+);
 
-    return () => {
-      isMounted = false;
-    };
-  }, [limit]);
+const App: FC<{
+  preloadedQuery: PreloadedQuery<GeneratedAppSpaceXQuery, {}>;
+}> = ({ preloadedQuery }) => {
+  const { company, launchesPast: launches } =
+    usePreloadedQuery<GeneratedAppSpaceXQuery>(AppSpaceXQuery, preloadedQuery);
 
   return (
-    <div className="App">
+    <>
       <h2>SpaceX</h2>
-      {companyInfo ? (
+      {company ? (
         <Company
-          ceo={companyInfo.ceo}
-          employees={companyInfo.employees}
-          founded={companyInfo.founded}
+          ceo={company.ceo}
+          employees={company.employees}
+          founded={company.founded}
         />
       ) : null}
       <h2>Launches</h2>
       {!launches ? <h4>Loading...</h4> : <Launches launches={launches} />}
-      <button onClick={() => setLimit(limit + 5)}>Load more</button>
-    </div>
+    </>
   );
-}
+};
 
-export default App;
+const AppRoot: FC = () => (
+  <RelayEnvironmentProvider environment={RelayEnvironment}>
+    <div className="App">
+      <Suspense fallback={"Loading..."}>
+        <App preloadedQuery={preloadedSpaceXAppQuery} />
+      </Suspense>
+    </div>
+  </RelayEnvironmentProvider>
+);
+
+export default AppRoot;
