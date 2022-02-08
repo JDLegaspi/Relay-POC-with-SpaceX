@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<f5ec21eb8aaf12cd4553dc927359cefb>>
+ * @generated SignedSource<<9df5f0fe482b029d43f2b2ed07d4b19f>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -9,6 +9,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest, Query } from 'relay-runtime';
+import { FragmentRefs } from "relay-runtime";
 export type AppSpaceXQuery$variables = {};
 export type AppSpaceXQueryVariables = AppSpaceXQuery$variables;
 export type AppSpaceXQuery$data = {
@@ -17,9 +18,7 @@ export type AppSpaceXQuery$data = {
     readonly employees: number | null;
     readonly founded: number | null;
   } | null;
-  readonly launchesPast: ReadonlyArray<{
-    readonly mission_name: string | null;
-  } | null> | null;
+  readonly " $fragmentSpreads": FragmentRefs<"AppLaunchesPast">;
 };
 export type AppSpaceXQueryResponse = AppSpaceXQuery$data;
 export type AppSpaceXQuery = {
@@ -59,20 +58,6 @@ var v0 = {
     }
   ],
   "storageKey": null
-},
-v1 = [
-  {
-    "kind": "Literal",
-    "name": "limit",
-    "value": 5
-  }
-],
-v2 = {
-  "alias": null,
-  "args": null,
-  "kind": "ScalarField",
-  "name": "mission_name",
-  "storageKey": null
 };
 return {
   "fragment": {
@@ -83,16 +68,9 @@ return {
     "selections": [
       (v0/*: any*/),
       {
-        "alias": null,
-        "args": (v1/*: any*/),
-        "concreteType": "Launch",
-        "kind": "LinkedField",
-        "name": "launchesPast",
-        "plural": true,
-        "selections": [
-          (v2/*: any*/)
-        ],
-        "storageKey": "launchesPast(limit:5)"
+        "args": null,
+        "kind": "FragmentSpread",
+        "name": "AppLaunchesPast"
       }
     ],
     "type": "Query",
@@ -107,13 +85,25 @@ return {
       (v0/*: any*/),
       {
         "alias": null,
-        "args": (v1/*: any*/),
+        "args": [
+          {
+            "kind": "Literal",
+            "name": "limit",
+            "value": 5
+          }
+        ],
         "concreteType": "Launch",
         "kind": "LinkedField",
         "name": "launchesPast",
         "plural": true,
         "selections": [
-          (v2/*: any*/),
+          {
+            "alias": null,
+            "args": null,
+            "kind": "ScalarField",
+            "name": "mission_name",
+            "storageKey": null
+          },
           {
             "alias": null,
             "args": null,
@@ -127,16 +117,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "f6190aeadb81ed132f8826d35c7d5752",
+    "cacheID": "a92961c36068463a42d6c6ed84e71f31",
     "id": null,
     "metadata": {},
     "name": "AppSpaceXQuery",
     "operationKind": "query",
-    "text": "query AppSpaceXQuery {\n  company {\n    ceo\n    employees\n    founded\n  }\n  launchesPast(limit: 5) {\n    mission_name\n    id\n  }\n}\n"
+    "text": "query AppSpaceXQuery {\n  company {\n    ceo\n    employees\n    founded\n  }\n  ...AppLaunchesPast\n}\n\nfragment AppLaunchesPast on Query {\n  launchesPast(limit: 5) {\n    ...Launches_pastLaunches\n    id\n  }\n}\n\nfragment Launches_pastLaunches on Launch {\n  mission_name\n}\n"
   }
 };
 })();
 
-(node as any).hash = "9a26298b653b02f616c23286f39224b2";
+(node as any).hash = "0b7cef37ac2e2b8eaaaae62a120203f2";
 
 export default node;

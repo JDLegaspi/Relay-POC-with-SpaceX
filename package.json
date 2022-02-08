@@ -23,7 +23,7 @@
     "build": "yarn relay && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "relay": "relay-compiler"
+    "relay": "relay-compiler --watch"
   },
   "relay": {
     "src": "./src",
