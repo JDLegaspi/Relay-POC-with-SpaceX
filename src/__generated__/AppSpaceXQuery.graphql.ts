@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<9df5f0fe482b029d43f2b2ed07d4b19f>>
+ * @generated SignedSource<<ae29c901ccdb1cb6adb192577e753cbf>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -18,7 +18,7 @@ export type AppSpaceXQuery$data = {
     readonly employees: number | null;
     readonly founded: number | null;
   } | null;
-  readonly " $fragmentSpreads": FragmentRefs<"AppLaunchesPast">;
+  readonly " $fragmentSpreads": FragmentRefs<"LaunchesLaunchesPast">;
 };
 export type AppSpaceXQueryResponse = AppSpaceXQuery$data;
 export type AppSpaceXQuery = {
@@ -70,7 +70,7 @@ return {
       {
         "args": null,
         "kind": "FragmentSpread",
-        "name": "AppLaunchesPast"
+        "name": "LaunchesLaunchesPast"
       }
     ],
     "type": "Query",
@@ -117,16 +117,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a92961c36068463a42d6c6ed84e71f31",
+    "cacheID": "090600cc7bbf059156868f65bbff371d",
     "id": null,
     "metadata": {},
     "name": "AppSpaceXQuery",
     "operationKind": "query",
-    "text": "query AppSpaceXQuery {\n  company {\n    ceo\n    employees\n    founded\n  }\n  ...AppLaunchesPast\n}\n\nfragment AppLaunchesPast on Query {\n  launchesPast(limit: 5) {\n    ...Launches_pastLaunches\n    id\n  }\n}\n\nfragment Launches_pastLaunches on Launch {\n  mission_name\n}\n"
+    "text": "query AppSpaceXQuery {\n  company {\n    ceo\n    employees\n    founded\n  }\n  ...LaunchesLaunchesPast\n}\n\nfragment LaunchesLaunchesPast on Query {\n  launchesPast(limit: 5) {\n    mission_name\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "0b7cef37ac2e2b8eaaaae62a120203f2";
+(node as any).hash = "4fa4ada91814ba43f289891eb228bc51";
 
 export default node;

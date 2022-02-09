@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<baf5643a06ff0903a72da85c9fee87fd>>
+ * @generated SignedSource<<2a33f602afea3ae621541d0f2e308f53>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,17 +10,17 @@
 
 import { ConcreteRequest, Query } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type appLaunchesRefetch$variables = {
+export type launchesLaunchesRefetch$variables = {
   limit?: number | null;
 };
-export type appLaunchesRefetchVariables = appLaunchesRefetch$variables;
-export type appLaunchesRefetch$data = {
-  readonly " $fragmentSpreads": FragmentRefs<"AppLaunchesPast">;
+export type launchesLaunchesRefetchVariables = launchesLaunchesRefetch$variables;
+export type launchesLaunchesRefetch$data = {
+  readonly " $fragmentSpreads": FragmentRefs<"LaunchesLaunchesPast">;
 };
-export type appLaunchesRefetchResponse = appLaunchesRefetch$data;
-export type appLaunchesRefetch = {
-  variables: appLaunchesRefetchVariables;
-  response: appLaunchesRefetch$data;
+export type launchesLaunchesRefetchResponse = launchesLaunchesRefetch$data;
+export type launchesLaunchesRefetch = {
+  variables: launchesLaunchesRefetchVariables;
+  response: launchesLaunchesRefetch$data;
 };
 
 const node: ConcreteRequest = (function(){
@@ -43,12 +43,12 @@ return {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Fragment",
     "metadata": null,
-    "name": "appLaunchesRefetch",
+    "name": "launchesLaunchesRefetch",
     "selections": [
       {
         "args": (v1/*: any*/),
         "kind": "FragmentSpread",
-        "name": "AppLaunchesPast"
+        "name": "LaunchesLaunchesPast"
       }
     ],
     "type": "Query",
@@ -58,7 +58,7 @@ return {
   "operation": {
     "argumentDefinitions": (v0/*: any*/),
     "kind": "Operation",
-    "name": "appLaunchesRefetch",
+    "name": "launchesLaunchesRefetch",
     "selections": [
       {
         "alias": null,
@@ -88,16 +88,16 @@ return {
     ]
   },
   "params": {
-    "cacheID": "a50031e13174d44b612fed2265687f8c",
+    "cacheID": "5e26166898921981592b1fd040729d97",
     "id": null,
     "metadata": {},
-    "name": "appLaunchesRefetch",
+    "name": "launchesLaunchesRefetch",
     "operationKind": "query",
-    "text": "query appLaunchesRefetch(\n  $limit: Int = 5\n) {\n  ...AppLaunchesPast_1UvIyz\n}\n\nfragment AppLaunchesPast_1UvIyz on Query {\n  launchesPast(limit: $limit) {\n    ...Launches_pastLaunches\n    id\n  }\n}\n\nfragment Launches_pastLaunches on Launch {\n  mission_name\n}\n"
+    "text": "query launchesLaunchesRefetch(\n  $limit: Int = 5\n) {\n  ...LaunchesLaunchesPast_1UvIyz\n}\n\nfragment LaunchesLaunchesPast_1UvIyz on Query {\n  launchesPast(limit: $limit) {\n    mission_name\n    id\n  }\n}\n"
   }
 };
 })();
 
-(node as any).hash = "bf8c0cf086ed70ea9320585f9a322a4c";
+(node as any).hash = "b8538f3f8605bc693fa21c3a8b9be603";
 
 export default node;

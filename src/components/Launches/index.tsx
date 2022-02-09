@@ -1,29 +1,44 @@
-import { FC } from "react";
-import { useFragment, useRefetchableFragment } from "react-relay";
+import { FC, useEffect, useState } from "react";
 import graphql from "babel-plugin-relay/macro";
-import { Launches_pastLaunches$key } from "./__generated__/Launches_pastLaunches.graphql";
+import { useRefetchableFragment } from "react-relay";
+import { launchesLaunchesRefetch as launchesLaunchesRefetchType } from "./__generated__/launchesLaunchesRefetch.graphql";
+import { LaunchesLaunchesPast$key } from "./__generated__/LaunchesLaunchesPast.graphql";
 
 export type Launch = { mission_name: string | null } | null;
 
 export interface LaunchesProps {
-  launchesRef: Launches_pastLaunches$key;
+  launchesRef: LaunchesLaunchesPast$key;
 }
 
 const Launches: FC<LaunchesProps> = ({ launchesRef }) => {
-  const data = useFragment(
+  const [limit, setLimit] = useState<number>(5);
+
+  const [{ launchesPast }, loadMore] = useRefetchableFragment<
+    launchesLaunchesRefetchType,
+    LaunchesLaunchesPast$key
+  >(
     graphql`
-      fragment Launches_pastLaunches on Launch @relay(plural: true) {
-        mission_name
+      fragment LaunchesLaunchesPast on Query
+      @refetchable(queryName: "launchesLaunchesRefetch")
+      @argumentDefinitions(limit: { type: Int, defaultValue: 5 }) {
+        launchesPast(limit: $limit) @required(action: THROW) {
+          mission_name
+        }
       }
     `,
     launchesRef
   );
 
+  useEffect(() => {
+    loadMore({ limit });
+  }, [limit, loadMore]);
+
   return (
     <>
-      {data.map((launch) => (
+      {launchesPast.map((launch) => (
         <h4>{launch?.mission_name}</h4>
       ))}
+      <button onClick={() => setLimit(limit + 5)}>Load more</button>
     </>
   );
 };

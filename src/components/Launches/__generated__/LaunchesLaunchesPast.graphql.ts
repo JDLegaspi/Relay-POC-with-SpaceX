@@ -1,5 +1,5 @@
 /**
- * @generated SignedSource<<00057ea27742e1dfe590c1a37986444d>>
+ * @generated SignedSource<<6a518f7a181ca457ad80b11b4a7a3824>>
  * @lightSyntaxTransform
  * @nogrep
  */
@@ -10,16 +10,16 @@
 
 import { ReaderFragment, RefetchableFragment } from 'relay-runtime';
 import { FragmentRefs } from "relay-runtime";
-export type AppLaunchesPast$data = {
+export type LaunchesLaunchesPast$data = {
   readonly launchesPast: ReadonlyArray<{
-    readonly " $fragmentSpreads": FragmentRefs<"Launches_pastLaunches">;
+    readonly mission_name: string | null;
   } | null>;
-  readonly " $fragmentType": "AppLaunchesPast";
+  readonly " $fragmentType": "LaunchesLaunchesPast";
 };
-export type AppLaunchesPast = AppLaunchesPast$data;
-export type AppLaunchesPast$key = {
-  readonly " $data"?: AppLaunchesPast$data;
-  readonly " $fragmentSpreads": FragmentRefs<"AppLaunchesPast">;
+export type LaunchesLaunchesPast = LaunchesLaunchesPast$data;
+export type LaunchesLaunchesPast$key = {
+  readonly " $data"?: LaunchesLaunchesPast$data;
+  readonly " $fragmentSpreads": FragmentRefs<"LaunchesLaunchesPast">;
 };
 
 const node: ReaderFragment = {
@@ -35,10 +35,10 @@ const node: ReaderFragment = {
     "refetch": {
       "connection": null,
       "fragmentPathInResult": [],
-      "operation": require('./appLaunchesRefetch.graphql')
+      "operation": require('./launchesLaunchesRefetch.graphql')
     }
   },
-  "name": "AppLaunchesPast",
+  "name": "LaunchesLaunchesPast",
   "selections": [
     {
       "kind": "RequiredField",
@@ -57,9 +57,11 @@ const node: ReaderFragment = {
         "plural": true,
         "selections": [
           {
+            "alias": null,
             "args": null,
-            "kind": "FragmentSpread",
-            "name": "Launches_pastLaunches"
+            "kind": "ScalarField",
+            "name": "mission_name",
+            "storageKey": null
           }
         ],
         "storageKey": null
@@ -72,6 +74,6 @@ const node: ReaderFragment = {
   "abstractKey": null
 };
 
-(node as any).hash = "bf8c0cf086ed70ea9320585f9a322a4c";
+(node as any).hash = "b8538f3f8605bc693fa21c3a8b9be603";
 
 export default node;
